@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+for _p in Path(__file__).resolve().parents:
+    if (_p / 'backend').is_dir() and (_p / 'pyproject.toml').is_file():
+        if str(_p) not in sys.path:
+            sys.path.insert(0, str(_p))
+        break
+
 import bcrypt
 import jwt
 from datetime import datetime, timedelta, timezone
@@ -39,3 +47,33 @@ def decode_access_token(token: str) -> Optional[Dict[str, Any]]:
         return payload
     except Exception:
         return None
+
+
+if __name__ == "__main__":
+    print("\n" + "=" * 70)
+    print(" [STANDALONE TEST] Security & Authentication Service Execution")
+    print("=" * 70)
+
+    password = "ReviewerPassword123!"
+    print(f"[*] Hashing plain password: '{password}'")
+    hashed = hash_password(password)
+    print(f"[+] Generated bcrypt hash : {hashed}")
+
+    print("\n[*] Testing Password Verification:")
+    valid = verify_password(password, hashed)
+    invalid = verify_password("WrongPassword!", hashed)
+    print(f"    - Correct password check : {valid} (Expected True)")
+    print(f"    - Wrong password check   : {invalid} (Expected False)")
+
+    print("\n[*] Testing JWT Access Token Lifecycle:")
+    token_data = {"sub": "reviewer-user-id", "email": "reviewer@meridianbay.org", "role": "reviewer"}
+    token = create_access_token(token_data)
+    print(f"[+] Signed JWT Token: {token[:40]}... (len: {len(token)})")
+
+    decoded = decode_access_token(token)
+    print(f"[+] Decoded Payload : {decoded}")
+
+    assert valid is True and invalid is False
+    assert decoded["email"] == "reviewer@meridianbay.org"
+    print("\n[✓] Security & Authentication module validated successfully!\n")
+
