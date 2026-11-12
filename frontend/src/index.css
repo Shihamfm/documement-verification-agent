@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased font-sans;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Pulse highlight for deep link target */
+@keyframes highlight-pulse {
+  0% {
+    background-color: rgba(254, 240, 138, 0.8);
+    transform: scale(1.01);
+  }
+  50% {
+    background-color: rgba(254, 240, 138, 0.4);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+.highlight-target {
+  animation: highlight-pulse 2.5s ease-out;
+  border-left: 4px solid #eab308;
+  padding-left: 0.75rem;
+}
