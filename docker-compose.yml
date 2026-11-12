@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: doc_verify_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: doc_verify_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d doc_verify_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: doc_verify_backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgrespassword@db:5432/doc_verify_db
+      - FORCE_POSTGRES=true
+      - SQLITE_FALLBACK=false
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - SECRET_KEY=meridian_bay_production_secret_key_12345
+      - UPLOAD_DIR=data/uploads
+      - DUPLICATE_WINDOW_MINUTES=5
+      - LLM_PROVIDER=offline_deterministic
+      - EMBEDDING_PROVIDER=tfidf_cosine
+      - DEFAULT_ADMIN_EMAIL=reviewer@meridianbay.org
+      - DEFAULT_ADMIN_PASSWORD=ReviewerPassword123!
+      - DEFAULT_ADMIN_NAME=Dr. Clinical Reviewer
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/uploads:/app/data/uploads
+      - ./data/source_documents:/app/data/source_documents
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
