@@ -278,41 +278,6 @@ The repository includes a comprehensive automated test suite covering authentica
 python -m pytest tests -v
 ```
 
-### Test Suite Results
-
-```text
-============================= test session starts =============================
-platform win32 -- Python 3.13.13, pytest-9.2.0, pluggy-1.7.0
-rootdir: E:\Projects\DS\documement-verification-agent
-plugins: anyio-4.16.0, asyncio-1.4.1.post1
-collected 22 items
-
-tests/test_auth.py::test_password_hashing PASSED                         [  4%]
-tests/test_auth.py::test_jwt_token_lifecycle PASSED                      [  9%]
-tests/test_auth.py::test_api_login_success PASSED                        [ 13%]
-tests/test_auth.py::test_api_login_invalid_password PASSED               [ 18%]
-tests/test_auth.py::test_api_register_user PASSED                        [ 22%]
-tests/test_auth.py::test_tenant_isolation PASSED                         [ 27%]
-tests/test_chunker_rag.py::test_monograph_aware_chunking PASSED          [ 31%]
-tests/test_chunker_rag.py::test_embedding_vector_generation PASSED       [ 36%]
-tests/test_chunker_rag.py::test_targeted_rag_retrieval PASSED            [ 40%]
-tests/test_deduplication.py::test_hash_computation PASSED                [ 45%]
-tests/test_deduplication.py::test_duplicate_upload_detection PASSED      [ 50%]
-tests/test_parser.py::test_parse_primary_docx PASSED                     [ 54%]
-tests/test_parser.py::test_extract_patient_demographics PASSED           [ 59%]
-tests/test_parser.py::test_extract_clinical_sections PASSED              [ 63%]
-tests/test_pipeline_async.py::test_non_blocking_upload_endpoint PASSED   [ 68%]
-tests/test_pipeline_async.py::test_complete_async_pipeline_execution PASSED [ 72%]
-tests/test_verifier.py::test_verify_velantine_supported PASSED           [ 77%]
-tests/test_verifier.py::test_verify_cordizem_dose_contradiction PASSED   [ 81%]
-tests/test_verifier.py::test_verify_pravoxil_timing_contradiction PASSED [ 86%]
-tests/test_verifier.py::test_verify_etrazolam_duration_contradiction PASSED [ 90%]
-tests/test_verifier.py::test_verify_pranixol_unsupported PASSED          [ 95%]
-tests/test_verifier.py::test_verify_quintaxin_supported PASSED           [100%]
-
-============================= 22 passed in 4.73s ==============================
-```
-
 ---
 
 ## 10. Repository File Structure
