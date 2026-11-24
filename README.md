@@ -71,9 +71,8 @@ Open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
 1. **Sign In**: Navigate to `http://localhost:8000`, click **"Autofill"** (or enter `reviewer@meridianbay.org` / `ReviewerPassword123!`), and click **"Sign In"**.
 2. **Upload Primary Document**: Click **"Upload Discharge Summary"**, select `data/source_documents/primary_document_medical.docx` (or your own PDF/DOCX discharge summary), and submit.
-3. **Real-time Pipeline Telemetry**: Observe the 7 granular pipeline stages transition in real time with active durations and checkmarks:
-   $$\text{parsed} \longrightarrow \text{chunked} \longrightarrow \text{embedded} \longrightarrow \text{summarized} \longrightarrow \text{key\_points\_extracted} \longrightarrow \text{entities\_extracted} \longrightarrow \text{verified} \longrightarrow \text{done}$$
-   *(Note: Refreshing the page mid-processing seamlessly preserves tracking state via Server-Sent Events).*
+3. **Real-time Pipeline Telemetry**: Observe the 7 granular pipeline stages transition in real time with active durations and checkmarks.
+
 4. **Side-by-Side Dual-Pane Workspace**:
    - **Left Pane**: Primary discharge summary rendered with patient demographics (Daniel Okonkwo, MRN MBMC-7714209), hospital course, diagnoses, and prescription table.
    - **Right Pane**: Tabbed analysis workbench:
